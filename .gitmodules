@@ -1,0 +1,33 @@
+[submodule "cactus"]
+	path = cactus
+	url = https://github.com/ComparativeGenomicsToolkit/cactus
+[submodule "matchingAndOrdering"]
+	path = matchingAndOrdering
+	url = https://github.com/ComparativeGenomicsToolkit/matchingAndOrdering
+[submodule "pinchesAndCacti"]
+	path = pinchesAndCacti
+	url = https://github.com/ComparativeGenomicsToolkit/pinchesAndCacti
+[submodule "sonLib"]
+	path = sonLib
+	url = https://github.com/ComparativeGenomicsToolkit/sonLib
+[submodule "kyototycoon"]
+	path = kyototycoon
+	url = https://github.com/UCSCReconGroup/kyototycoon
+[submodule "tokyocabinet"]
+	path = tokyocabinet
+	url = https://github.com/UCSCReconGroup/tokyocabinet
+[submodule "kyotocabinet"]
+	path = kyotocabinet
+	url = https://github.com/UCSCReconGroup/kyotocabinet
+[submodule "cPecan"]
+	path = cPecan
+	url = https://github.com/benedictpaten/cPecan
+[submodule "hal"]
+	path = hal
+	url = https://github.com/ComparativeGenomicsToolkit/hal
+[submodule "hdf5"]
+	path = hdf5
+	url = https://github.com/UCSCReconGroup/hdf5
+[submodule "cactus2hal"]
+	path = cactus2hal
+	url = https://github.com/glennhickey/cactus2hal
