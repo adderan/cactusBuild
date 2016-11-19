@@ -1,11 +1,18 @@
 export sonLibRootPath = ${PWD}/sonLib
 
-export tokyoCabinetLib = ${PWD}/tokyocabinet/libtokyocabinet.a
-export kyotoTycoonLib = ${PWD}/kyototycoon/libkyototycoon.a
-export kyotoCabinetLib = ${PWD}/kyotocabinet/libkyotocabinet.a
+libtokyocabinet = ${PWD}/tokyocabinet/libtokyocabinet.a
+libkyototycoon = ${PWD}/kyototycoon/libkyototycoon.a
+libkyotocabinet = ${PWD}/kyotocabinet/libkyotocabinet.a
 
-kyotoTycoonIncl = -I${PWD}/kyototycoon -DHAVE_KYOTO_TYCOON=1 
-kyotoTycoonLib = -L${PWD}/kyototycoon -Wl,-rpath,${ttPrefix}/lib -Wl,-Bstatic -lkyototycoon -lkyotocabinet -Wl,-Bdynamic -lz -lbz2 -lpthread -lm -lstdc++
+
+export tcPrefix = $(PWD)/tokyocabinet
+export tokyoCabinetIncl = -I ${tcPrefix}/include -DHAVE_TOKYO_CABINET=1
+export tokyoCabinetLib = -L${tcPrefix}/lib -Wl,-Bstatic -ltokyocabinet -Wl,-Bdynamic -lz -lpthread -lm
+
+export kcPrefix =$(PWD)/kyotocabinet
+export ttPrefix =$(PWD)/kyototycoon
+export kyotoTycoonIncl = -I${kcPrefix}/include -I${ttPrefix}/include -DHAVE_KYOTO_TYCOON=1 -I$(PWD)/zlib/include 
+export kyotoTycoonLib = -L${ttPrefix}/lib -L${kcPrefix}/lib -Wl,-Bstatic -lkyototycoon -lkyotocabinet -Wl,-Bdynamic -lz -lpthread -lm -lstdc++
 
 libSonLib = ${PWD}/sonLib/sonLib.a
 libPinchesAndCacti = ${PWD}/sonLib/lib/stPinchesAndCacti.a
@@ -27,20 +34,22 @@ cactus: ${libSonLib} ${libPinchesAndCacti} ${libCPecan} ${libMatchingAndOrdering
 ${libSonLib}: ${libkyotocabinet} ${libtokyocabinet} ${libkyototycoon}
 	cd ${PWD}/sonLib && make
 
-${libtokyocabinet}: tokyocabinetRule
+sonLibRule: ${libSonLib}
 
-${libkyototycoon}: kyototycoonRule
+tokyocabinetRule: ${libtokyocabinet}
 
-${libkyotocabinet}: kyotocabinetRule
+kyototycoonRule: ${libkyototycoon}
 
-tokyocabinetRule:
-	cd ${PWD}/tokyocabinet && ./configure --prefix=${PWD}/tokyocabinet --disable-bzip && make && make install
+kyotocabinetRule: ${libkyotocabinet}
 
-kyototycoonRule:
-	cd ${PWD}/kyototycoon && ./configure --prefix=${PWD}/kyototycoon --with-kc=${PWD}/kyotocabinet && make && make install
+${libtokyocabinet}:
+	cd ${PWD}/tokyocabinet && ./configure --prefix=${PWD}/tokyocabinet --enable-static --disable-shared --disable-bzip && make && make install
 
-kyotocabinetRule:
-	cd kyotocabinet && ./configure --prefix=${PWD}/kyotocabinet && make && make install
+${libkyototycoon}:
+	cd ${PWD}/kyototycoon && ./configure --prefix=${PWD}/kyototycoon --enable-static --disable-shared --with-kc=${PWD}/kyotocabinet && make && make install
+
+${libkyotocabinet}:
+	cd kyotocabinet && ./configure --prefix=${PWD}/kyotocabinet --enable-static --disable-shared && make && make install
 
 
 ${libPinchesAndCacti}:
