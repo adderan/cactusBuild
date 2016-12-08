@@ -30,5 +30,5 @@ do
 	 options="$options '${arg}'"
 done
 
-. ${envFile} && eval CACTUS_DEVELOPER_MODE=1 PATH=$PATH:${rootDir}/cactus/bin:${rootDir}/sonLib/bin progressiveCactus "$options"
+. ${envFile} && export PATH=$PATH:${rootDir}/cactus/bin:${rootDir}/sonLib/bin && eval CACTUS_DEVELOPER_MODE=1 progressiveCactus "$options"
 exit
