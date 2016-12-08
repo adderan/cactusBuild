@@ -18,7 +18,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-rootDir=$(dirname $0)
+scriptPath=$(readlink -f $0)
+rootDir=`dirname $scriptPath`
 envFile=${rootDir}/env/bin/activate
 
 # need to go through this monkey business to make sure arguments with spaces
@@ -29,5 +30,5 @@ do
 	 options="$options '${arg}'"
 done
 
-. ${envFile} && eval progressiveCactus "$options"
+. ${envFile} && eval CACTUS_DEVELOPER_MODE=1 PATH=$PATH:${rootDir}/cactus/bin:${rootDir}/sonLib/bin progressiveCactus "$options"
 exit
